@@ -20,5 +20,9 @@ export default function App() {
     loadApp();
   }, [fontsLoaded]);
 
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return <AppNavigatorRoutes />;
 }
