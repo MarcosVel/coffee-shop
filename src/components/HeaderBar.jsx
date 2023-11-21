@@ -23,7 +23,7 @@ const HeaderBar = ({ title }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: SPACING.space_30,
+    padding: SPACING.space_28,
     paddingTop: SPACING.space_10,
     alignItems: "center",
     justifyContent: "space-between",
