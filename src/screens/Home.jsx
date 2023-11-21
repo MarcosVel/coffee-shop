@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  FlatList,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -50,6 +51,7 @@ const Home = () => {
   );
 
   console.log("CoffeeList", CoffeeList);
+  console.log("sortedCoffee", sortedCoffee);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -83,6 +85,29 @@ const Home = () => {
             />
           </TouchableOpacity>
         </View>
+
+        <FlatList
+          horizontal
+          data={categories}
+          keyExtractor={(item, index) => item + index}
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoriesFilter}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity
+              onPress={() => {
+                setCategoryIndex({ index, category: categories[index] });
+                setSortedCoffee(getCoffeeList(categories[index], CoffeeList));
+              }}
+            >
+              <Text style={styles.filterText(index === categoryIndex.index)}>
+                {item}
+              </Text>
+              {index === categoryIndex.index && (
+                <View style={styles.categoryDot} />
+              )}
+            </TouchableOpacity>
+          )}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -121,6 +146,24 @@ const styles = StyleSheet.create({
   searchIcon: {
     marginVertical: SPACING.space_16,
     marginRight: SPACING.space_20,
+  },
+  categoriesFilter: {
+    gap: SPACING.space_20,
+    paddingHorizontal: SPACING.space_28,
+    marginBottom: SPACING.space_20,
+  },
+  filterText: (selected) => ({
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_14,
+    color: selected ? COLORS.primaryOrangeHex : COLORS.primaryLightGreyHex,
+  }),
+  categoryDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: COLORS.primaryOrangeHex,
+    marginTop: SPACING.space_8,
+    alignSelf: "center",
   },
 });
 
