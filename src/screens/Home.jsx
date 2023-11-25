@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -35,6 +35,8 @@ function getCoffeeList(category, data) {
 }
 
 const Home = () => {
+  const ListRef = useRef();
+
   const CoffeeList = useStore((state) => state.CoffeeList);
   const BeanList = useStore((state) => state.BeanList);
 
@@ -94,6 +96,7 @@ const Home = () => {
           renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
+                ListRef.current.scrollToOffset({ animated: true, offset: 0 }); // add animation to scroll list to beginning
                 setCategoryIndex({ index, category: categories[index] });
                 setSortedCoffee(getCoffeeList(categories[index], CoffeeList));
               }}
@@ -109,11 +112,35 @@ const Home = () => {
         />
 
         <FlatList
+          ref={ListRef}
           horizontal
           showsHorizontalScrollIndicator={false}
           data={sortedCoffee}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={styles.sortedCoffeeList}
+          contentContainerStyle={styles.cardsList}
+          renderItem={({ item }) => (
+            <CoffeeCard
+              id={item.id}
+              index={item.index}
+              type={item.hype}
+              name={item.name}
+              roasted={item.roasted}
+              imagelink_square={item.imagelink_square}
+              special_ingredient={item.special_ingredient}
+              prices={item.prices}
+              average_rating={item.average_rating}
+            />
+          )}
+        />
+
+        <Text style={styles.coffeeBeansTitle}>Coffee Beans</Text>
+
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={BeanList}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.cardsList}
           renderItem={({ item }) => (
             <CoffeeCard
               id={item.id}
@@ -139,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryBlackHex,
   },
   scrollView: {
-    // flexGrow: 1,
+    paddingBottom: 56,
   },
   title: {
     fontFamily: FONTFAMILY.poppins_semibold,
@@ -185,9 +212,17 @@ const styles = StyleSheet.create({
     marginTop: SPACING.space_8,
     alignSelf: "center",
   },
-  sortedCoffeeList: {
+  cardsList: {
     gap: SPACING.space_20,
     paddingHorizontal: SPACING.space_28,
+    marginBottom: SPACING.space_24,
+  },
+  coffeeBeansTitle: {
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryWhiteHex,
+    marginLeft: SPACING.space_28,
+    marginBottom: SPACING.space_20,
   },
 });
 
