@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { CustomIcon, HeaderBar } from "../components";
+import { CoffeeCard, CustomIcon, HeaderBar } from "../components";
 import { useStore } from "../store/store";
 import {
   BORDERRADIUS,
@@ -50,7 +50,6 @@ const Home = () => {
     getCoffeeList(categoryIndex.category, CoffeeList)
   );
 
-  console.log("CoffeeList", CoffeeList);
   console.log("sortedCoffee", sortedCoffee);
 
   return (
@@ -108,6 +107,27 @@ const Home = () => {
             </TouchableOpacity>
           )}
         />
+
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={sortedCoffee}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.sortedCoffeeList}
+          renderItem={({ item }) => (
+            <CoffeeCard
+              id={item.id}
+              index={item.index}
+              type={item.hype}
+              name={item.name}
+              roasted={item.roasted}
+              imagelink_square={item.imagelink_square}
+              special_ingredient={item.special_ingredient}
+              prices={item.prices}
+              average_rating={item.average_rating}
+            />
+          )}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -115,11 +135,11 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: COLORS.primaryBlackHex,
   },
   scrollView: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   title: {
     fontFamily: FONTFAMILY.poppins_semibold,
@@ -164,6 +184,10 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryOrangeHex,
     marginTop: SPACING.space_8,
     alignSelf: "center",
+  },
+  sortedCoffeeList: {
+    gap: SPACING.space_20,
+    paddingHorizontal: SPACING.space_28,
   },
 });
 
