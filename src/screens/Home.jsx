@@ -76,6 +76,12 @@ const Home = () => {
     scrollListToBeginning();
   }
 
+  const EmptyList = () => (
+    <View style={styles.emptyView}>
+      <Text style={styles.emptyText}>No Coffee Available</Text>
+    </View>
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -91,7 +97,10 @@ const Home = () => {
           <TextInput
             placeholder="Find your coffee..."
             defaultValue={searchText}
-            onChangeText={(text) => setSearchText(text)}
+            onChangeText={(text) => {
+              setSearchText(text);
+              searchCoffee(text);
+            }}
             placeholderTextColor={COLORS.primaryLightGreyHex}
             style={styles.textInput}
           />
@@ -168,6 +177,7 @@ const Home = () => {
               average_rating={item.average_rating}
             />
           )}
+          ListEmptyComponent={EmptyList}
         />
 
         <Text style={styles.coffeeBeansTitle}>Coffee Beans</Text>
@@ -253,6 +263,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   cardsList: {
+    flexGrow: 1,
     gap: SPACING.space_20,
     paddingHorizontal: SPACING.space_28,
     marginBottom: SPACING.space_24,
@@ -263,6 +274,18 @@ const styles = StyleSheet.create({
     color: COLORS.primaryWhiteHex,
     marginLeft: SPACING.space_28,
     marginBottom: SPACING.space_20,
+  },
+  emptyView: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: SPACING.space_36 * 3.02,
+  },
+  emptyText: {
+    textAlign: "center",
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_14,
+    color: COLORS.primaryLightGreyHex,
   },
 });
 
