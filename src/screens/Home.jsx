@@ -54,11 +54,34 @@ const Home = () => {
 
   console.log("sortedCoffee", sortedCoffee);
 
+  function scrollListToBeginning() {
+    ListRef.current.scrollToOffset({ animated: true, offset: 0 }); // add animation to scroll list to beginning
+  }
+
+  function searchCoffee(search) {
+    if (search !== "") {
+      scrollListToBeginning();
+      setCategoryIndex({ index: 0, category: categories[0] });
+      setSortedCoffee([
+        ...CoffeeList.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase())
+        ),
+      ]);
+    }
+  }
+
+  function resetSearch() {
+    setSearchText("");
+    setSortedCoffee([...CoffeeList]);
+    scrollListToBeginning();
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollView}
+        keyboardShouldPersistTaps="handled" // buttons still work when keyboard is open
       >
         <HeaderBar />
 
@@ -73,7 +96,21 @@ const Home = () => {
             style={styles.textInput}
           />
 
-          <TouchableOpacity hitSlop={10}>
+          {searchText.length > 0 && (
+            <TouchableOpacity style={styles.closeBtn} onPress={resetSearch}>
+              <CustomIcon
+                name="close"
+                size={FONTSIZE.size_16}
+                color={COLORS.primaryLightGreyHex}
+              />
+            </TouchableOpacity>
+          )}
+
+          <TouchableOpacity
+            hitSlop={10}
+            disabled={searchText.length === 0}
+            onPress={() => searchCoffee(searchText)}
+          >
             <CustomIcon
               name="search"
               size={FONTSIZE.size_18}
@@ -96,7 +133,7 @@ const Home = () => {
           renderItem={({ item, index }) => (
             <TouchableOpacity
               onPress={() => {
-                ListRef.current.scrollToOffset({ animated: true, offset: 0 }); // add animation to scroll list to beginning
+                scrollListToBeginning();
                 setCategoryIndex({ index, category: categories[index] });
                 setSortedCoffee(getCoffeeList(categories[index], CoffeeList));
               }}
@@ -188,6 +225,9 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_medium,
     fontSize: FONTSIZE.size_14,
     color: COLORS.primaryWhiteHex,
+    marginRight: SPACING.space_12,
+  },
+  closeBtn: {
     marginRight: SPACING.space_12,
   },
   searchIcon: {
