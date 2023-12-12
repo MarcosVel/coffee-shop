@@ -34,7 +34,7 @@ function getCoffeeList(category, data) {
   return data.filter((item) => item.name === category);
 }
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const ListRef = useRef();
 
   const CoffeeList = useStore((state) => state.CoffeeList);
@@ -165,17 +165,19 @@ const Home = () => {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.cardsList}
           renderItem={({ item }) => (
-            <CoffeeCard
-              id={item.id}
-              index={item.index}
-              type={item.hype}
-              name={item.name}
-              roasted={item.roasted}
-              imagelink_square={item.imagelink_square}
-              special_ingredient={item.special_ingredient}
-              prices={item.prices}
-              average_rating={item.average_rating}
-            />
+            <TouchableOpacity onPress={() => navigation.push("Details")}>
+              <CoffeeCard
+                id={item.id}
+                index={item.index}
+                type={item.hype}
+                name={item.name}
+                roasted={item.roasted}
+                imagelink_square={item.imagelink_square}
+                special_ingredient={item.special_ingredient}
+                prices={item.prices}
+                average_rating={item.average_rating}
+              />
+            </TouchableOpacity>
           )}
           ListEmptyComponent={EmptyList}
         />

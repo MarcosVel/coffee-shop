@@ -32,48 +32,46 @@ const CoffeeCard = ({
   average_rating,
 }) => {
   return (
-    <TouchableOpacity onPress={() => {}}>
-      <LinearGradient
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
-        style={styles.container}
+    <LinearGradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
+      style={styles.container}
+    >
+      <ImageBackground
+        source={imagelink_square}
+        style={styles.image}
+        resizeMode="cover"
       >
-        <ImageBackground
-          source={imagelink_square}
-          style={styles.image}
-          resizeMode="cover"
-        >
-          <View style={styles.rating}>
-            <CustomIcon
-              name="star"
-              size={FONTSIZE.size_10}
-              color={COLORS.primaryOrangeHex}
-            />
-            <Text style={styles.ratingText}>{average_rating}</Text>
-          </View>
-        </ImageBackground>
-
-        <Text style={styles.name}>{name}</Text>
-
-        <Text style={styles.ingredient}>{special_ingredient}</Text>
-
-        <View style={styles.cardFooter}>
-          <Text style={styles.currency}>
-            $ <Text style={styles.price}>{prices[0].price}</Text>
-          </Text>
-
-          <TouchableOpacity>
-            <BgIcon
-              name="add"
-              color={COLORS.primaryWhiteHex}
-              size={FONTSIZE.size_10}
-              bgColor={COLORS.primaryOrangeHex}
-            />
-          </TouchableOpacity>
+        <View style={styles.rating}>
+          <CustomIcon
+            name="star"
+            size={FONTSIZE.size_10}
+            color={COLORS.primaryOrangeHex}
+          />
+          <Text style={styles.ratingText}>{average_rating}</Text>
         </View>
-      </LinearGradient>
-    </TouchableOpacity>
+      </ImageBackground>
+
+      <Text style={styles.name}>{name}</Text>
+
+      <Text style={styles.ingredient}>{special_ingredient}</Text>
+
+      <View style={styles.cardFooter}>
+        <Text style={styles.currency}>
+          $ <Text style={styles.price}>{prices[0].price}</Text>
+        </Text>
+
+        <TouchableOpacity>
+          <BgIcon
+            name="add"
+            color={COLORS.primaryWhiteHex}
+            size={FONTSIZE.size_10}
+            bgColor={COLORS.primaryOrangeHex}
+          />
+        </TouchableOpacity>
+      </View>
+    </LinearGradient>
   );
 };
 

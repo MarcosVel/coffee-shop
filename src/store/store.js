@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { produce } from "immer";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
-import CoffeeData from "../data/CoffeeData";
 import BeansData from "../data/BeansData";
+import CoffeeData from "../data/CoffeeData";
 
 export const useStore = create(
   persist(
@@ -13,6 +14,29 @@ export const useStore = create(
       FavoritesList: [],
       CartList: [],
       OrderHistoryList: [],
+      addToCart: (cartItem) =>
+        set(
+          produce((state) => {
+            const existingCartItem = state.CartList.find(
+              (item) => item.id === cartItem.id
+            );
+
+            if (existingCartItem) {
+              const existingPrice = existingCartItem.prices.find(
+                (price) => price.size === cartItem.prices[0].size
+              );
+
+              if (existingPrice) {
+                existingPrice.quantity++;
+              } else {
+                existingCartItem.prices.push(cartItem.prices[0]);
+                existingCartItem.prices.sort((a, b) => b.size - a.size);
+              }
+            } else {
+              state.CartList.push(cartItem);
+            }
+          })
+        ),
     }),
     {
       name: "coffee-app",
