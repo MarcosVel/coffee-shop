@@ -1,6 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 
-const Details = () => {
+const Details = ({ navigation, route }) => {
+  console.log("navigation", navigation);
+  console.log("route", route.params);
+
   return (
     <View>
       <Text>Details</Text>

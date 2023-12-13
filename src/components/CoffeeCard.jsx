@@ -30,6 +30,7 @@ const CoffeeCard = ({
   special_ingredient,
   prices,
   average_rating,
+  buttonPressHandler,
 }) => {
   return (
     <LinearGradient
@@ -62,7 +63,7 @@ const CoffeeCard = ({
           $ <Text style={styles.price}>{prices[0].price}</Text>
         </Text>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={buttonPressHandler}>
           <BgIcon
             name="add"
             color={COLORS.primaryWhiteHex}

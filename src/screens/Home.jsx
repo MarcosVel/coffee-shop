@@ -165,7 +165,15 @@ const Home = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.cardsList}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.push("Details")}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.push("Details", {
+                  index: item.index,
+                  id: item.id,
+                  type: item.type,
+                })
+              }
+            >
               <CoffeeCard
                 id={item.id}
                 index={item.index}
@@ -176,6 +184,9 @@ const Home = ({ navigation }) => {
                 special_ingredient={item.special_ingredient}
                 prices={item.prices}
                 average_rating={item.average_rating}
+                buttonPressHandler={() => {
+                  console.log("test");
+                }}
               />
             </TouchableOpacity>
           )}
@@ -191,17 +202,27 @@ const Home = ({ navigation }) => {
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.cardsList}
           renderItem={({ item }) => (
-            <CoffeeCard
-              id={item.id}
-              index={item.index}
-              type={item.hype}
-              name={item.name}
-              roasted={item.roasted}
-              imagelink_square={item.imagelink_square}
-              special_ingredient={item.special_ingredient}
-              prices={item.prices}
-              average_rating={item.average_rating}
-            />
+            <TouchableOpacity
+              onPress={() =>
+                navigation.push("Details", {
+                  index: item.index,
+                  id: item.id,
+                  type: item.type,
+                })
+              }
+            >
+              <CoffeeCard
+                id={item.id}
+                index={item.index}
+                type={item.hype}
+                name={item.name}
+                roasted={item.roasted}
+                imagelink_square={item.imagelink_square}
+                special_ingredient={item.special_ingredient}
+                prices={item.prices}
+                average_rating={item.average_rating}
+              />
+            </TouchableOpacity>
           )}
         />
       </ScrollView>

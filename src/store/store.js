@@ -37,6 +37,73 @@ export const useStore = create(
             }
           })
         ),
+      calculateCartPrice: () =>
+        set(
+          produce((state) => {
+            const calculateItemPrice = (item) =>
+              item.prices
+                .reduce(
+                  (acc, price) =>
+                    acc + parseFloat(price.price) * price.quantity,
+                  0
+                )
+                .toFixed(2);
+
+            let totalprice = 0;
+            state.CartList.forEach((cartItem) => {
+              const tempprice = calculateItemPrice(cartItem);
+              cartItem.ItemPrice = tempprice.toString();
+              totalprice += parseFloat(tempprice);
+            });
+
+            state.CartPrice = totalprice.toFixed(2).toString();
+          })
+        ),
+      toggleFavourite: (itemList, id) => {
+        const itemIndex = itemList.findIndex((item) => item.id === id);
+        if (itemIndex !== -1) {
+          const currentItem = itemList[itemIndex];
+          currentItem.favourite = !currentItem.favourite;
+
+          if (currentItem.favourite) {
+            state.FavoritesList.unshift(currentItem);
+          } else {
+            const favoriteIndex = state.FavoritesList.findIndex(
+              (item) => item.id === id
+            );
+            if (favoriteIndex !== -1) {
+              state.FavoritesList.splice(favoriteIndex, 1);
+            }
+          }
+        }
+      },
+      addToFavoriteList: (type, id) =>
+        set(
+          produce((state) => {
+            if (type === "Coffee") {
+              toggleFavourite(state.CoffeeList, id);
+            } else if (type === "Bean") {
+              toggleFavourite(state.BeanList, id);
+            }
+          })
+        ),
+      deleteFromFavoriteList: (type, id) =>
+        set(
+          produce((state) => {
+            if (type === "Coffee") {
+              toggleFavourite(state.CoffeeList, id);
+            } else if (type === "Beans") {
+              toggleFavourite(state.BeanList, id);
+            }
+
+            const spliceIndex = state.FavoritesList.findIndex(
+              (item) => item.id === id
+            );
+            if (spliceIndex !== -1) {
+              state.FavoritesList.splice(spliceIndex, 1);
+            }
+          })
+        ),
     }),
     {
       name: "coffee-app",
