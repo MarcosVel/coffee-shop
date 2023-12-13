@@ -5,6 +5,23 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import BeansData from "../data/BeansData";
 import CoffeeData from "../data/CoffeeData";
 
+function toggleFavourite(favoritesList, itemList, id) {
+  const itemIndex = itemList.findIndex((item) => item.id === id);
+  if (itemIndex !== -1) {
+    const currentItem = itemList[itemIndex];
+    currentItem.favourite = !currentItem.favourite;
+
+    if (currentItem.favourite) {
+      favoritesList.unshift(currentItem);
+    } else {
+      const favoriteIndex = favoritesList.findIndex((item) => item.id === id);
+      if (favoriteIndex !== -1) {
+        favoritesList.splice(favoriteIndex, 1);
+      }
+    }
+  }
+}
+
 export const useStore = create(
   persist(
     (set, get) => ({
@@ -59,31 +76,13 @@ export const useStore = create(
             state.CartPrice = totalprice.toFixed(2).toString();
           })
         ),
-      toggleFavourite: (itemList, id) => {
-        const itemIndex = itemList.findIndex((item) => item.id === id);
-        if (itemIndex !== -1) {
-          const currentItem = itemList[itemIndex];
-          currentItem.favourite = !currentItem.favourite;
-
-          if (currentItem.favourite) {
-            state.FavoritesList.unshift(currentItem);
-          } else {
-            const favoriteIndex = state.FavoritesList.findIndex(
-              (item) => item.id === id
-            );
-            if (favoriteIndex !== -1) {
-              state.FavoritesList.splice(favoriteIndex, 1);
-            }
-          }
-        }
-      },
       addToFavoriteList: (type, id) =>
         set(
           produce((state) => {
             if (type === "Coffee") {
-              toggleFavourite(state.CoffeeList, id);
+              toggleFavourite(state.FavoritesList, state.CoffeeList, id);
             } else if (type === "Bean") {
-              toggleFavourite(state.BeanList, id);
+              toggleFavourite(state.FavoritesList, state.BeanList, id);
             }
           })
         ),
@@ -91,9 +90,9 @@ export const useStore = create(
         set(
           produce((state) => {
             if (type === "Coffee") {
-              toggleFavourite(state.CoffeeList, id);
-            } else if (type === "Beans") {
-              toggleFavourite(state.BeanList, id);
+              toggleFavourite(state.FavoritesList, state.CoffeeList, id);
+            } else if (type === "Bean") {
+              toggleFavourite(state.FavoritesList, state.BeanList, id);
             }
 
             const spliceIndex = state.FavoritesList.findIndex(
