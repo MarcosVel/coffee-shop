@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
-import CustomIcon from "../components/CustomIcon";
+import { CustomIcon } from "../components";
 import { Cart, Favorite, Home, OrderHistory } from "../screens";
 import { COLORS } from "../theme/theme";
 
@@ -15,7 +15,7 @@ const TabNavigator = () => (
       tabBarHideOnKeyboard: true,
       tabBarStyle: styles.tabBar,
       tabBarBackground: () => (
-        <BlurView tint="dark" intensity={100} style={styles.blurView} />
+        <BlurView tint="dark" intensity={10} style={styles.blurView} />
       ),
     }}
   >

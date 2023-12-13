@@ -21,7 +21,7 @@ export const COLORS = {
   primaryBlackHex: "#0C0F14",
   primaryDarkGreyHex: "#141921",
   secondaryDarkGreyHex: "#21262E",
-  primaryGreyHex: "#252A32",
+  primaryGreyHex: "#262B33",
   secondaryGreyHex: "#252A32",
   primaryLightGreyHex: "#52555A",
   secondaryLightGreyHex: "#AEAEAE",
