@@ -15,6 +15,21 @@ export const SPACING = {
   space_36: 36,
 };
 
+/**
+ * @example
+ * primaryRedHex: "#DC3535",
+ * primaryOrangeHex: "#D17842",
+ * primaryBlackHex: "#0C0F14",
+ * primaryDarkGreyHex: "#141921",
+ * secondaryDarkGreyHex: "#21262E",
+ * primaryGreyHex: "#262B33",
+ * secondaryGreyHex: "#252A32",
+ * primaryLightGreyHex: "#52555A",
+ * secondaryLightGreyHex: "#AEAEAE",
+ * primaryWhiteHex: "#FFFFFF",
+ * primaryBlackRGBA: "rgba(12,15,20,0.5)",
+ * secondaryBlackRGBA: "rgba(0,0,0,0.7)",
+ */
 export const COLORS = {
   primaryRedHex: "#DC3535",
   primaryOrangeHex: "#D17842",
@@ -30,6 +45,18 @@ export const COLORS = {
   secondaryBlackRGBA: "rgba(0,0,0,0.7)",
 };
 
+/**
+ * @example
+ * thin = 100
+ * extralight = 200
+ * light = 300
+ * regular = 400
+ * medium = 500
+ * semibold = 600
+ * bold = 700
+ * extrabold = 800
+ * black = 900
+ */
 export const FONTFAMILY = {
   poppins_black: "Poppins-Black",
   poppins_bold: "Poppins-Bold",

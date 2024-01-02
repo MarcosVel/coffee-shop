@@ -1,11 +1,20 @@
+import { BlurView } from "expo-blur";
 import React from "react";
 import {
   ImageBackground,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { COLORS, SPACING } from "../theme/theme";
+import {
+  BORDERRADIUS,
+  COLORS,
+  FONTFAMILY,
+  FONTSIZE,
+  SPACING,
+} from "../theme/theme";
+import CustomIcon from "./CustomIcon";
 import GradientIcon from "./GradientIcon";
 
 const ImageBGInfo = ({
@@ -49,6 +58,54 @@ const ImageBGInfo = ({
             />
           </TouchableOpacity>
         </View>
+
+        <BlurView tint="dark" intensity={15} style={styles.blurView}>
+          <View style={styles.leftSide}>
+            <View>
+              <Text style={styles.name}>{name}</Text>
+              <Text style={styles.special_ingredient}>
+                {special_ingredient}
+              </Text>
+            </View>
+
+            <Text style={styles.name}>{name}</Text>
+          </View>
+
+          <View style={{ gap: 16 }}>
+            <View style={styles.itemProperties}>
+              <View
+                style={[styles.property, type !== "Bean" && { paddingTop: 2 }]}
+              >
+                <CustomIcon
+                  name={type === "Bean" ? "bean" : "beans"}
+                  size={type === "Bean" ? 28 : 42}
+                  color={COLORS.primaryOrangeHex}
+                />
+                <Text
+                  style={[
+                    styles.propertyText,
+                    type !== "Bean" && { marginTop: -6 },
+                  ]}
+                >
+                  {type}
+                </Text>
+              </View>
+
+              <View style={styles.property}>
+                <CustomIcon
+                  name={type === "Bean" ? "location" : "drop"}
+                  size={FONTSIZE.size_28}
+                  color={COLORS.primaryOrangeHex}
+                />
+                <Text style={styles.propertyText}>{type}</Text>
+              </View>
+            </View>
+
+            <View style={styles.roasted}>
+              <Text style={styles.propertyText}>{roasted}</Text>
+            </View>
+          </View>
+        </BlurView>
       </ImageBackground>
     </View>
   );
@@ -69,6 +126,55 @@ const styles = StyleSheet.create({
   actionButton: {
     justifyContent: "center",
     alignItems: "center",
+  },
+  blurView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: "auto",
+    backgroundColor: COLORS.primaryBlackRGBA,
+    borderTopLeftRadius: SPACING.space_24,
+    borderTopRightRadius: SPACING.space_24,
+    paddingVertical: SPACING.space_16,
+    paddingHorizontal: SPACING.space_20,
+    overflow: "hidden",
+  },
+  name: {
+    color: COLORS.primaryWhiteHex,
+    fontSize: FONTSIZE.size_20,
+    fontFamily: FONTFAMILY.poppins_semibold,
+  },
+  special_ingredient: {
+    color: COLORS.secondaryLightGreyHex,
+    fontSize: FONTSIZE.size_12,
+    fontFamily: FONTFAMILY.poppins_regular,
+  },
+  itemProperties: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 20,
+  },
+  property: {
+    minWidth: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.primaryDarkGreyHex,
+    borderRadius: BORDERRADIUS.radius_10,
+    padding: SPACING.space_8,
+    aspectRatio: 1,
+  },
+  roasted: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: COLORS.primaryDarkGreyHex,
+    borderRadius: BORDERRADIUS.radius_10,
+    padding: SPACING.space_12,
+  },
+  propertyText: {
+    textAlign: "center",
+    fontFamily: FONTFAMILY.poppins_medium,
+    fontSize: FONTSIZE.size_12,
+    marginTop: 2,
+    color: COLORS.secondaryLightGreyHex,
   },
 });
 
