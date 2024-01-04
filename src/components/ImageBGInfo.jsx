@@ -68,7 +68,15 @@ const ImageBGInfo = ({
               </Text>
             </View>
 
-            <Text style={styles.name}>{name}</Text>
+            <View style={styles.ratingView}>
+              <CustomIcon
+                name="star"
+                size={20}
+                color={COLORS.primaryOrangeHex}
+              />
+              <Text style={styles.rating}>{average_rating}</Text>
+              <Text style={styles.special_ingredient}>({ratings_count})</Text>
+            </View>
           </View>
 
           <View style={{ gap: 16 }}>
@@ -97,7 +105,7 @@ const ImageBGInfo = ({
                   size={FONTSIZE.size_28}
                   color={COLORS.primaryOrangeHex}
                 />
-                <Text style={styles.propertyText}>{type}</Text>
+                <Text style={styles.propertyText}>{ingredients}</Text>
               </View>
             </View>
 
@@ -138,6 +146,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.space_20,
     overflow: "hidden",
   },
+  leftSide: {
+    justifyContent: "space-around",
+  },
   name: {
     color: COLORS.primaryWhiteHex,
     fontSize: FONTSIZE.size_20,
@@ -147,6 +158,16 @@ const styles = StyleSheet.create({
     color: COLORS.secondaryLightGreyHex,
     fontSize: FONTSIZE.size_12,
     fontFamily: FONTFAMILY.poppins_regular,
+  },
+  ratingView: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+  },
+  rating: {
+    color: COLORS.primaryWhiteHex,
+    fontSize: FONTSIZE.size_16,
+    fontFamily: FONTFAMILY.poppins_semibold,
   },
   itemProperties: {
     flexDirection: "row",
