@@ -32,95 +32,86 @@ const ImageBGInfo = ({
   toggleFavourite,
 }) => {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={imagelink_portrait} style={styles.bgImage}>
-        <View style={styles.actions}>
-          {goBack && (
-            <TouchableOpacity onPress={goBack} style={styles.actionButton}>
-              <GradientIcon
-                name="left"
-                size={16}
-                color={COLORS.secondaryLightGreyHex}
-              />
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity
-            onPress={() => toggleFavourite(favourite, type, id)}
-            style={[styles.actionButton, { marginLeft: "auto" }]}
-          >
+    <ImageBackground source={imagelink_portrait} style={styles.bgImage}>
+      <View style={styles.actions}>
+        {goBack && (
+          <TouchableOpacity onPress={goBack} style={styles.actionButton}>
             <GradientIcon
-              name="like"
+              name="left"
               size={16}
-              color={
-                favourite ? COLORS.primaryRedHex : COLORS.secondaryLightGreyHex
-              }
+              color={COLORS.secondaryLightGreyHex}
             />
           </TouchableOpacity>
+        )}
+
+        <TouchableOpacity
+          onPress={() => toggleFavourite(favourite, type, id)}
+          style={[styles.actionButton, { marginLeft: "auto" }]}
+        >
+          <GradientIcon
+            name="like"
+            size={16}
+            color={
+              favourite ? COLORS.primaryRedHex : COLORS.secondaryLightGreyHex
+            }
+          />
+        </TouchableOpacity>
+      </View>
+
+      <BlurView tint="dark" intensity={15} style={styles.blurView}>
+        <View style={styles.leftSide}>
+          <View>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.special_ingredient}>{special_ingredient}</Text>
+          </View>
+
+          <View style={styles.ratingView}>
+            <CustomIcon name="star" size={20} color={COLORS.primaryOrangeHex} />
+            <Text style={styles.rating}>{average_rating}</Text>
+            <Text style={styles.special_ingredient}>({ratings_count})</Text>
+          </View>
         </View>
 
-        <BlurView tint="dark" intensity={15} style={styles.blurView}>
-          <View style={styles.leftSide}>
-            <View>
-              <Text style={styles.name}>{name}</Text>
-              <Text style={styles.special_ingredient}>
-                {special_ingredient}
+        <View style={{ gap: 16 }}>
+          <View style={styles.itemProperties}>
+            <View
+              style={[styles.property, type !== "Bean" && { paddingTop: 2 }]}
+            >
+              <CustomIcon
+                name={type === "Bean" ? "bean" : "beans"}
+                size={type === "Bean" ? 28 : 42}
+                color={COLORS.primaryOrangeHex}
+              />
+              <Text
+                style={[
+                  styles.propertyText,
+                  type !== "Bean" && { marginTop: -6 },
+                ]}
+              >
+                {type}
               </Text>
             </View>
 
-            <View style={styles.ratingView}>
+            <View style={styles.property}>
               <CustomIcon
-                name="star"
-                size={20}
+                name={type === "Bean" ? "location" : "drop"}
+                size={FONTSIZE.size_28}
                 color={COLORS.primaryOrangeHex}
               />
-              <Text style={styles.rating}>{average_rating}</Text>
-              <Text style={styles.special_ingredient}>({ratings_count})</Text>
+              <Text style={styles.propertyText}>{ingredients}</Text>
             </View>
           </View>
 
-          <View style={{ gap: 16 }}>
-            <View style={styles.itemProperties}>
-              <View
-                style={[styles.property, type !== "Bean" && { paddingTop: 2 }]}
-              >
-                <CustomIcon
-                  name={type === "Bean" ? "bean" : "beans"}
-                  size={type === "Bean" ? 28 : 42}
-                  color={COLORS.primaryOrangeHex}
-                />
-                <Text
-                  style={[
-                    styles.propertyText,
-                    type !== "Bean" && { marginTop: -6 },
-                  ]}
-                >
-                  {type}
-                </Text>
-              </View>
-
-              <View style={styles.property}>
-                <CustomIcon
-                  name={type === "Bean" ? "location" : "drop"}
-                  size={FONTSIZE.size_28}
-                  color={COLORS.primaryOrangeHex}
-                />
-                <Text style={styles.propertyText}>{ingredients}</Text>
-              </View>
-            </View>
-
-            <View style={styles.roasted}>
-              <Text style={styles.propertyText}>{roasted}</Text>
-            </View>
+          <View style={styles.roasted}>
+            <Text style={styles.propertyText}>{roasted}</Text>
           </View>
-        </BlurView>
-      </ImageBackground>
-    </View>
+        </View>
+      </BlurView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
   bgImage: {
     width: "100%",
     aspectRatio: 20 / 25,
