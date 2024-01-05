@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { Button, ImageBGInfo } from "../components";
+import { ImageBGInfo, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 
@@ -81,7 +81,12 @@ const Details = ({ navigation, route }) => {
             ))}
           </View>
 
-          <Button title="Add to Cart" />
+          <PaymentFooter
+            prices={ItemOfIndex.prices}
+            selectedSize={selectedSize}
+            buttonText="Add to Cart"
+            buttonHandler={() => console.log("test")}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
