@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useStore } from "../store/store";
 import {
   BORDERRADIUS,
   COLORS,
@@ -30,8 +31,25 @@ const CoffeeCard = ({
   special_ingredient,
   prices,
   average_rating,
-  buttonPressHandler,
 }) => {
+  const addToCart = useStore((state) => state.addToCart);
+  const calculateCartPrice = useStore((state) => state.calculateCartPrice);
+
+  function addToCartHandler() {
+    addToCart({
+      id,
+      index,
+      name,
+      roasted,
+      imagelink_square,
+      special_ingredient,
+      type,
+      prices: [{ price: prices[0].price, quantity: 1, size: prices[0].size }],
+    });
+
+    calculateCartPrice();
+  }
+
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -63,7 +81,7 @@ const CoffeeCard = ({
           $ <Text style={styles.price}>{prices[0].price}</Text>
         </Text>
 
-        <TouchableOpacity onPress={buttonPressHandler}>
+        <TouchableOpacity onPress={addToCartHandler}>
           <BgIcon
             name="add"
             color={COLORS.primaryWhiteHex}

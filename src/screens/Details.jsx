@@ -19,6 +19,9 @@ const Details = ({ navigation, route }) => {
     state.addToFavoriteList,
     state.deleteFromFavoriteList,
   ]);
+  const addToCart = useStore((state) => state.addToCart);
+  const calculateCartPrice = useStore((state) => state.calculateCartPrice);
+
   const [fullDescription, setFullDescription] = useState(false);
   const [selectedSize, setSelectedSize] = useState(0);
 
@@ -27,6 +30,31 @@ const Details = ({ navigation, route }) => {
   const handleFavorite = (favourite, type, id) => {
     favourite ? deleteFromFavoriteList(type, id) : addToFavoriteList(type, id);
   };
+
+  function addToCartHandler({
+    id,
+    index,
+    name,
+    roasted,
+    imagelink_square,
+    special_ingredient,
+    type,
+    price,
+  }) {
+    addToCart({
+      id,
+      index,
+      name,
+      roasted,
+      imagelink_square,
+      special_ingredient,
+      type,
+      prices: [{ ...price, quantity: 1 }],
+    });
+
+    calculateCartPrice();
+    navigation.navigate("Cart");
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -85,7 +113,18 @@ const Details = ({ navigation, route }) => {
             prices={ItemOfIndex.prices}
             selectedSize={selectedSize}
             buttonText="Add to Cart"
-            buttonHandler={() => console.log("test")}
+            buttonHandler={() =>
+              addToCartHandler({
+                id: ItemOfIndex.id,
+                index: ItemOfIndex.index,
+                name: ItemOfIndex.name,
+                roasted: ItemOfIndex.roasted,
+                imagelink_square: ItemOfIndex.imagelink_square,
+                special_ingredient: ItemOfIndex.special_ingredient,
+                type: ItemOfIndex.type,
+                price: ItemOfIndex.prices[selectedSize],
+              })
+            }
           />
         </View>
       </ScrollView>

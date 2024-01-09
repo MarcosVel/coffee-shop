@@ -177,16 +177,13 @@ const Home = ({ navigation }) => {
               <CoffeeCard
                 id={item.id}
                 index={item.index}
-                type={item.hype}
+                type={item.type}
                 name={item.name}
                 roasted={item.roasted}
                 imagelink_square={item.imagelink_square}
                 special_ingredient={item.special_ingredient}
                 prices={item.prices}
                 average_rating={item.average_rating}
-                buttonPressHandler={() => {
-                  console.log("test");
-                }}
               />
             </TouchableOpacity>
           )}
