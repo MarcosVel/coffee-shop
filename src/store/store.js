@@ -54,6 +54,13 @@ export const useStore = create(
             }
           })
         ),
+      cleanCart: () =>
+        set(
+          produce((state) => {
+            state.CartList = [];
+            state.CartPrice = 0;
+          })
+        ),
       calculateCartPrice: () =>
         set(
           produce((state) => {
