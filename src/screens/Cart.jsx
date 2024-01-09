@@ -1,10 +1,20 @@
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { useStore } from "../store/store";
 
 const Cart = () => {
+  const cartList = useStore((state) => state.CartList);
+  const cleanCart = useStore((state) => state.cleanCart);
+  const cartPrice = useStore((state) => state.CartPrice);
+
+  console.log("cartList", cartList);
+
   return (
-    <View>
-      <Text>Cart</Text>
-    </View>
+    <SafeAreaView>
+      <TouchableOpacity onPress={() => cleanCart()}>
+        <Text>Clean cart</Text>
+      </TouchableOpacity>
+      <Text>{cartPrice}</Text>
+    </SafeAreaView>
   );
 };
 
