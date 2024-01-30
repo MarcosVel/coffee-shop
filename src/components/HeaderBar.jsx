@@ -1,17 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../theme/theme";
 import GradientIcon from "./GradientIcon";
 import ProfilePic from "./ProfilePic";
 
-const HeaderBar = ({ title }) => {
+const HeaderBar = ({ title, onPress }) => {
   return (
     <View style={styles.container}>
-      <GradientIcon
-        name="menu"
-        color={COLORS.primaryLightGreyHex}
-        size={FONTSIZE.size_16}
-      />
+      <TouchableOpacity disabled={!onPress} onPress={onPress}>
+        <GradientIcon
+          name="menu"
+          color={COLORS.primaryLightGreyHex}
+          size={FONTSIZE.size_16}
+        />
+      </TouchableOpacity>
 
       <Text style={styles.text}>{title}</Text>
 
