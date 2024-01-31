@@ -1,9 +1,9 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Button, EmptyList, HeaderBar } from "../components";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { EmptyList, HeaderBar, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
-import { COLORS, FONTFAMILY, SPACING } from "../theme/theme";
+import { COLORS, SPACING } from "../theme/theme";
 
-const Cart = () => {
+const Cart = ({ navigation }) => {
   const [CartList, CartPrice] = useStore((state) => [
     state.CartList,
     state.CartPrice,
@@ -35,16 +35,13 @@ const Cart = () => {
 
       {CartList.length > 0 && (
         <View style={styles.footer}>
-          <View style={styles.priceView}>
-            <Text style={styles.totalPrice}>Total Price</Text>
-
-            <Text style={styles.price}>
-              <Text style={{ color: COLORS.primaryOrangeHex }}>$ </Text>
-              {CartPrice}
-            </Text>
-          </View>
-
-          <Button title="Pay" onPress={() => console.log("test")} />
+          <PaymentFooter
+            title="Total Price"
+            prices={{ 0: { price: CartPrice } }}
+            selectedSize={0}
+            buttonText="Pay"
+            buttonHandler={() => navigation.push("Payment")}
+          />
         </View>
       )}
     </SafeAreaView>
@@ -61,20 +58,6 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: "center",
     marginHorizontal: SPACING.space_28,
-  },
-  priceView: {
-    alignItems: "center",
-  },
-  totalPrice: {
-    fontFamily: FONTFAMILY.poppins_medium,
-    fontSize: 12,
-    color: COLORS.secondaryLightGreyHex,
-    marginBottom: 2,
-  },
-  price: {
-    fontFamily: FONTFAMILY.poppins_semibold,
-    fontSize: 20,
-    color: COLORS.primaryWhiteHex,
   },
   footer: {
     flexDirection: "row",
