@@ -1,5 +1,6 @@
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import { EmptyList, HeaderBar, PaymentFooter } from "../components";
+import { LinearGradient } from "expo-linear-gradient";
+import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import { CartItem, EmptyList, HeaderBar, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
 import { COLORS, SPACING } from "../theme/theme";
 
@@ -17,24 +18,37 @@ const Cart = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ flexGrow: 1 }}
-      >
-        <HeaderBar title="Cart" onPress={() => cleanCart()} />
+      <HeaderBar title="Cart" onPress={() => cleanCart()} />
 
-        {CartList.length > 0 ? (
-          <View style={styles.container}></View>
-        ) : (
-          <View>
-            <EmptyList />
-          </View>
+      <FlatList
+        data={CartList}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.list}
+        style={{ marginBottom: 50 }}
+        renderItem={({ item }) => (
+          <CartItem
+            key={item.id}
+            id={item.id}
+            title={item.name}
+            imagelink_square={item.imagelink_square}
+            special_ingredient={item.special_ingredient}
+            roasted={item.roasted}
+            prices={item.prices}
+            type={item.type}
+            incrementCartItem={incrementCartItem}
+            decrementCartItem={decrementCartItem}
+          />
         )}
-      </ScrollView>
+        ListEmptyComponent={() => <EmptyList />}
+        showsVerticalScrollIndicator={false}
+      />
 
       {CartList.length > 0 && (
-        <View style={styles.footer}>
+        <LinearGradient
+          style={styles.footer}
+          colors={["rgba(12, 15, 20, 0)", "rgba(12, 15, 20, 1)"]}
+          locations={[0, 0.5]}
+        >
           <PaymentFooter
             title="Total Price"
             prices={{ 0: { price: CartPrice } }}
@@ -42,7 +56,7 @@ const Cart = ({ navigation }) => {
             buttonText="Pay"
             buttonHandler={() => navigation.push("Payment")}
           />
-        </View>
+        </LinearGradient>
       )}
     </SafeAreaView>
   );
@@ -53,20 +67,24 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primaryBlackHex,
     flex: 1,
   },
-  scrollView: {},
-  container: {
-    flexGrow: 1,
-    alignItems: "center",
-    marginHorizontal: SPACING.space_28,
+  list: {
+    paddingHorizontal: SPACING.space_28,
+    paddingBottom: 140,
+    gap: 16,
   },
   footer: {
+    position: "absolute",
+    bottom: 0,
+    paddingTop: 60,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: 40,
-    marginHorizontal: SPACING.space_20,
-    marginTop: "auto",
-    marginBottom: 80,
+    paddingHorizontal: SPACING.space_20,
+    marginBottom: 84,
+  },
+  blurView: {
+    width: "100%",
   },
 });
 

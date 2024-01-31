@@ -10,7 +10,6 @@ const PaymentFooter = ({
   buttonText,
   buttonHandler,
 }) => {
-  console.log("prices", prices);
   return (
     <View style={styles.footer}>
       <View style={styles.priceBox}>

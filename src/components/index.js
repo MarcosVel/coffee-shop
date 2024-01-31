@@ -1,4 +1,5 @@
 export { default as Button } from "./Button";
+export { default as CartItem } from "./CartItem";
 export { default as CoffeeCard } from "./CoffeeCard";
 export { default as CustomIcon } from "./CustomIcon";
 export { default as EmptyList } from "./EmptyList";
