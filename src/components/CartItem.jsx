@@ -39,10 +39,12 @@ const CartItem = ({
           </View>
 
           {prices.length === 1 ? (
-            <>
+            <View style={styles.onlyItem}>
               <View style={styles.prices}>
                 <View style={styles.size}>
-                  <Text style={styles.sizeTxt}>{prices[0].size}</Text>
+                  <Text style={styles.sizeTxt(type === "Bean")}>
+                    {prices[0].size}
+                  </Text>
                 </View>
                 <Text style={styles.price}>
                   <Text style={{ color: COLORS.primaryOrangeHex }}>$ </Text>
@@ -76,7 +78,7 @@ const CartItem = ({
                   />
                 </TouchableOpacity>
               </View>
-            </>
+            </View>
           ) : (
             <View style={styles.roasted}>
               <Text
@@ -89,16 +91,54 @@ const CartItem = ({
               </Text>
             </View>
           )}
-
-          {/* {prices.length === 1 &&
-            prices.map((price, index) => (
-              <>
-                <Text>{price.quantity}</Text>
-                <Text>{price.price}</Text>
-              </>
-            ))} */}
         </View>
       </View>
+
+      {prices.length !== 1 &&
+        prices.map((price, index) => (
+          <View key={price + index} style={{ gap: 8 }}>
+            <View style={styles.quantityContainer}>
+              <View style={styles.prices}>
+                <View style={styles.size}>
+                  <Text style={styles.sizeTxt(type === "Bean")}>
+                    {price.size}
+                  </Text>
+                </View>
+                <Text style={styles.price}>
+                  <Text style={{ color: COLORS.primaryOrangeHex }}>$ </Text>
+                  {price.price}
+                </Text>
+              </View>
+
+              <View style={styles.quantityView}>
+                <TouchableOpacity>
+                  <BgIcon
+                    name="minus"
+                    color={COLORS.primaryWhiteHex}
+                    size={FONTSIZE.size_10}
+                    bgColor={COLORS.primaryOrangeHex}
+                  />
+                </TouchableOpacity>
+
+                <TextInput
+                  value={price.quantity.toString()}
+                  style={styles.quantity}
+                />
+
+                <TouchableOpacity
+                // onPress={addToCartHandler}
+                >
+                  <BgIcon
+                    name="add"
+                    color={COLORS.primaryWhiteHex}
+                    size={FONTSIZE.size_10}
+                    bgColor={COLORS.primaryOrangeHex}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        ))}
     </LinearGradient>
   );
 };
@@ -108,6 +148,7 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 16,
     borderRadius: 24,
+    gap: 12,
   },
   innerContainer: {
     flex: 1,
@@ -143,38 +184,41 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
   },
+  onlyItem: {
+    gap: 12,
+  },
   prices: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    // gap: 16,
-    // marginTop: 10,
+    gap: 8,
   },
   size: {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: COLORS.primaryBlackHex,
-    paddingHorizontal: 28,
-    paddingVertical: 8,
+    minWidth: 64,
+    minHeight: 35,
+    padding: 6,
     borderRadius: 10,
   },
-  sizeTxt: {
-    fontSize: 16,
-    color: COLORS.primaryWhiteHex,
+  sizeTxt: (isBean) => ({
+    fontSize: isBean ? 12 : 16,
+    color: isBean ? COLORS.secondaryLightGreyHex : COLORS.primaryWhiteHex,
     fontFamily: FONTFAMILY.poppins_medium,
-  },
+  }),
   price: {
     fontSize: 20,
     color: COLORS.primaryWhiteHex,
     fontFamily: FONTFAMILY.poppins_semibold,
   },
   quantityView: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
     gap: 16,
-    // marginTop: 10,
   },
   quantity: {
     backgroundColor: COLORS.primaryBlackHex,
@@ -184,9 +228,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderWidth: 1,
     borderColor: COLORS.primaryOrangeHex,
-    flex: 1,
+    flexGrow: 1,
     height: "100%",
     textAlign: "center",
+    maxHeight: 30,
+  },
+  quantityContainer: {
+    flex: 1,
+    width: "100%",
+    flexDirection: "row",
+    gap: 16,
   },
 });
 
