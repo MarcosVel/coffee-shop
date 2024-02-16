@@ -32,7 +32,7 @@ const CartItem = ({
       <View style={styles.innerContainer}>
         <Image source={imagelink_square} style={styles.image} />
 
-        <View style={styles.data}>
+        <View style={styles.data(prices.length === 1)}>
           <View>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.special_ingredient}>{special_ingredient}</Text>
@@ -162,22 +162,23 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 16,
   },
-  data: {
-    flex: 1,
+  data: (isOnlySize) => ({
+    flex: isOnlySize ? 1 : 2,
     justifyContent: "space-between",
-  },
+  }),
   title: {
     fontSize: 16,
     color: COLORS.primaryWhiteHex,
     fontFamily: FONTFAMILY.poppins_regular,
   },
   special_ingredient: {
-    fontSize: 10,
+    fontSize: 12,
     color: COLORS.secondaryLightGreyHex,
     fontFamily: FONTFAMILY.poppins_regular,
     lineHeight: 20,
   },
   roasted: {
+    alignSelf: "flex-start",
     marginTop: 10,
     backgroundColor: COLORS.primaryDarkGreyHex,
     paddingHorizontal: 16,
