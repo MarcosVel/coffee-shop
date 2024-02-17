@@ -53,7 +53,9 @@ const CartItem = ({
               </View>
 
               <View style={styles.quantityView}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => decrementCartItem(id, prices[0].size)}
+                >
                   <BgIcon
                     name="minus"
                     color={COLORS.primaryWhiteHex}
@@ -68,7 +70,7 @@ const CartItem = ({
                 />
 
                 <TouchableOpacity
-                // onPress={addToCartHandler}
+                  onPress={() => incrementCartItem(id, prices[0].size)}
                 >
                   <BgIcon
                     name="add"
@@ -111,7 +113,9 @@ const CartItem = ({
               </View>
 
               <View style={styles.quantityView}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => decrementCartItem(id, price.size)}
+                >
                   <BgIcon
                     name="minus"
                     color={COLORS.primaryWhiteHex}
@@ -126,7 +130,7 @@ const CartItem = ({
                 />
 
                 <TouchableOpacity
-                // onPress={addToCartHandler}
+                  onPress={() => incrementCartItem(id, price.size)}
                 >
                   <BgIcon
                     name="add"

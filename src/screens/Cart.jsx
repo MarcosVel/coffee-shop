@@ -3,6 +3,7 @@ import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 import { CartItem, EmptyList, HeaderBar, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
 import { COLORS, SPACING } from "../theme/theme";
+import { useEffect } from "react";
 
 const Cart = ({ navigation }) => {
   const [CartList, CartPrice] = useStore((state) => [
@@ -15,6 +16,10 @@ const Cart = ({ navigation }) => {
   const calculateCartPrice = useStore((state) => state.calculateCartPrice);
 
   console.log("CartList", CartList);
+
+  useEffect(() => {
+    calculateCartPrice();
+  }, [CartList]);
 
   return (
     <SafeAreaView style={styles.safeArea}>

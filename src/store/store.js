@@ -123,7 +123,6 @@ export const useStore = create(
           produce((state) => {
             const cartItem = state.CartList.find((item) => item.id === id);
             const price = cartItem.prices.find((price) => price.size === size);
-            price.quantity--;
 
             if (price.quantity > 1) {
               price.quantity--;
@@ -132,6 +131,14 @@ export const useStore = create(
                 (price) => price.size === size
               );
               cartItem.prices.splice(priceIndex, 1);
+            }
+
+            // Remove item from cart if no prices left
+            if (cartItem.prices.length === 0) {
+              const itemIndex = state.CartList.findIndex(
+                (item) => item.id === id
+              );
+              state.CartList.splice(itemIndex, 1);
             }
           })
         ),
