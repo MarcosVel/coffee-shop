@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Rive, { Fit } from "rive-react-native";
 import { COLORS, FONTFAMILY } from "../theme/theme";
 
-const EmptyList = () => {
+const EmptyList = ({ screen }) => {
   return (
     <View style={styles.container}>
       <Rive
@@ -15,7 +15,7 @@ const EmptyList = () => {
         }}
       />
 
-      <Text style={styles.text}>Cart is empty</Text>
+      <Text style={styles.text}>{screen} is empty</Text>
     </View>
   );
 };

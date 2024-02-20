@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { useEffect } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -8,7 +9,6 @@ import {
 import { CartItem, EmptyList, HeaderBar, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
 import { COLORS, SPACING } from "../theme/theme";
-import { useEffect } from "react";
 
 const Cart = ({ navigation }) => {
   const [CartList, CartPrice] = useStore((state) => [
@@ -59,7 +59,7 @@ const Cart = ({ navigation }) => {
             />
           </TouchableOpacity>
         )}
-        ListEmptyComponent={() => <EmptyList />}
+        ListEmptyComponent={() => <EmptyList screen="Cart" />}
         showsVerticalScrollIndicator={false}
       />
 
