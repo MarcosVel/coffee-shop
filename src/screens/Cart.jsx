@@ -1,5 +1,10 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { FlatList, SafeAreaView, StyleSheet } from "react-native";
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { CartItem, EmptyList, HeaderBar, PaymentFooter } from "../components";
 import { useStore } from "../store/store";
 import { COLORS, SPACING } from "../theme/theme";
@@ -31,18 +36,28 @@ const Cart = ({ navigation }) => {
         contentContainerStyle={styles.list}
         style={{ marginBottom: 50 }}
         renderItem={({ item }) => (
-          <CartItem
-            key={item.id}
-            id={item.id}
-            title={item.name}
-            imagelink_square={item.imagelink_square}
-            special_ingredient={item.special_ingredient}
-            roasted={item.roasted}
-            prices={item.prices}
-            type={item.type}
-            incrementCartItem={incrementCartItem}
-            decrementCartItem={decrementCartItem}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.push("Details", {
+                index: item.index,
+                id: item.id,
+                type: item.type,
+              })
+            }
+          >
+            <CartItem
+              key={item.id}
+              id={item.id}
+              title={item.name}
+              imagelink_square={item.imagelink_square}
+              special_ingredient={item.special_ingredient}
+              roasted={item.roasted}
+              prices={item.prices}
+              type={item.type}
+              incrementCartItem={incrementCartItem}
+              decrementCartItem={decrementCartItem}
+            />
+          </TouchableOpacity>
         )}
         ListEmptyComponent={() => <EmptyList />}
         showsVerticalScrollIndicator={false}
