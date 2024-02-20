@@ -110,6 +110,7 @@ const Details = ({ navigation, route }) => {
           </View>
 
           <PaymentFooter
+            title="Price"
             prices={ItemOfIndex.prices}
             selectedSize={selectedSize}
             buttonText="Add to Cart"

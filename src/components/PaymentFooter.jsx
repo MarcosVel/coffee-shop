@@ -3,11 +3,17 @@ import { StyleSheet, Text, View } from "react-native";
 import { COLORS, FONTFAMILY, FONTSIZE } from "../theme/theme";
 import Button from "./Button";
 
-const PaymentFooter = ({ prices, selectedSize, buttonText, buttonHandler }) => {
+const PaymentFooter = ({
+  prices,
+  title,
+  selectedSize,
+  buttonText,
+  buttonHandler,
+}) => {
   return (
     <View style={styles.footer}>
       <View style={styles.priceBox}>
-        <Text style={styles.price}>Price</Text>
+        <Text style={styles.price}>{title}</Text>
         <Text style={styles.priceValue}>
           <Text style={{ color: COLORS.primaryOrangeHex }}>$</Text>{" "}
           {prices[selectedSize].price}

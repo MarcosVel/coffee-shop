@@ -211,7 +211,7 @@ const Home = ({ navigation }) => {
               <CoffeeCard
                 id={item.id}
                 index={item.index}
-                type={item.hype}
+                type={item.type}
                 name={item.name}
                 roasted={item.roasted}
                 imagelink_square={item.imagelink_square}

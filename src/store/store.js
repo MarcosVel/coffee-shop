@@ -110,6 +110,38 @@ export const useStore = create(
             }
           })
         ),
+      incrementCartItem: (id, size) =>
+        set(
+          produce((state) => {
+            const cartItem = state.CartList.find((item) => item.id === id);
+            const price = cartItem.prices.find((price) => price.size === size);
+            price.quantity++;
+          })
+        ),
+      decrementCartItem: (id, size) =>
+        set(
+          produce((state) => {
+            const cartItem = state.CartList.find((item) => item.id === id);
+            const price = cartItem.prices.find((price) => price.size === size);
+
+            if (price.quantity > 1) {
+              price.quantity--;
+            } else {
+              const priceIndex = cartItem.prices.findIndex(
+                (price) => price.size === size
+              );
+              cartItem.prices.splice(priceIndex, 1);
+            }
+
+            // Remove item from cart if no prices left
+            if (cartItem.prices.length === 0) {
+              const itemIndex = state.CartList.findIndex(
+                (item) => item.id === id
+              );
+              state.CartList.splice(itemIndex, 1);
+            }
+          })
+        ),
     }),
     {
       name: "coffee-app",
