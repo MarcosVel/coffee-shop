@@ -18,10 +18,18 @@ const Favorite = ({ navigation }) => {
     state.deleteFromFavoriteList,
   ]);
 
-  const [fullDescription, setFullDescription] = useState(false);
+  const [fullDescription, setFullDescription] = useState({});
 
   function handleFavorite(favourite, type, id) {
     favourite ? deleteFromFavoriteList(type, id) : addToFavoriteList(type, id);
+  }
+
+  // Toggle full description for each item
+  function toggleFullDescription(id) {
+    setFullDescription((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
   }
 
   console.log("FavoritesList", FavoritesList);
@@ -60,12 +68,12 @@ const Favorite = ({ navigation }) => {
       >
         <Text style={styles.descriptionTitle}>Description</Text>
         <TouchableOpacity
-          onPress={() => setFullDescription(!fullDescription)}
+          onPress={() => toggleFullDescription(item.id)}
           activeOpacity={0.5}
         >
           <Text
             style={styles.descriptionText}
-            numberOfLines={fullDescription ? undefined : 3}
+            numberOfLines={fullDescription[item.id] ? undefined : 3}
           >
             {item.description}
           </Text>
