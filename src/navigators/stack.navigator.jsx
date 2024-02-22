@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Details, Payment } from "../screens";
+import { COLORS } from "../theme/theme";
 import TabNavigator from "./tab.navigator";
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -9,7 +10,7 @@ const StackNavigator = () => (
     screenOptions={{
       headerShown: false,
       contentStyle: {
-        backgroundColor: "#1a1a1a",
+        backgroundColor: COLORS.primaryBlackHex,
       },
     }}
   >
