@@ -74,7 +74,9 @@ const Cart = ({ navigation }) => {
             prices={{ 0: { price: CartPrice } }}
             selectedSize={0}
             buttonText="Pay"
-            buttonHandler={() => navigation.push("Payment")}
+            buttonHandler={() =>
+              navigation.push("Payment", { price: CartPrice })
+            }
           />
         </LinearGradient>
       )}

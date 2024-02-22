@@ -6,3 +6,4 @@ export { default as EmptyList } from "./EmptyList";
 export { default as HeaderBar } from "./HeaderBar";
 export { default as ImageBGInfo } from "./ImageBGInfo";
 export { default as PaymentFooter } from "./PaymentFooter";
+export { default as PaymentMethod } from "./PaymentMethod";

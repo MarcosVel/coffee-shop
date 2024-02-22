@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -5,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { PaymentFooter, PaymentMethod } from "../components";
 import GradientIcon from "../components/GradientIcon";
 import { COLORS, FONTFAMILY } from "../theme/theme";
 
@@ -31,7 +33,10 @@ const PaymentList = [
   },
 ];
 
-const Payment = ({ navigation }) => {
+const Payment = ({ navigation, route }) => {
+  const { price } = route.params;
+  const [paymentMode, setPaymentMode] = useState("Credit Card");
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -48,25 +53,53 @@ const Payment = ({ navigation }) => {
 
         <Text style={styles.title}>Payment</Text>
       </View>
+
+      <View style={styles.paymentOptionsContainer}>
+        {PaymentList.map((item, index) => (
+          <PaymentMethod
+            paymentMode={paymentMode}
+            name={item.name}
+            icon={item.icon}
+            isIcon={item.isIcon}
+            price={price}
+          />
+        ))}
+      </View>
+
+      <PaymentFooter
+        title="Price"
+        prices={{ 0: { price } }}
+        selectedSize={0}
+        buttonText={`Pay from ${paymentMode}`}
+        buttonHandler={() => {}}
+      />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flexGrow: 1,
+    marginHorizontal: 20,
+  },
   header: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: 16,
   },
   goBack: {
     position: "absolute",
-    left: 28,
+    left: 8,
   },
   title: {
     fontSize: 20,
     fontFamily: FONTFAMILY.poppins_semibold,
     color: COLORS.primaryWhiteHex,
+  },
+  paymentOptionsContainer: {
+    flex: 1,
+    marginTop: 32,
+    gap: 10,
   },
 });
 
