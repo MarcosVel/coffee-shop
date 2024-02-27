@@ -6,7 +6,10 @@ import CustomIcon from "./CustomIcon";
 
 const PaymentMethod = ({ paymentMode, name, icon, isIcon, price }) => {
   return (
-    <TouchableOpacity style={styles.paymentCardContainer} activeOpacity={0.5}>
+    <TouchableOpacity
+      style={styles.paymentCardContainer(paymentMode === name)}
+      activeOpacity={0.5}
+    >
       <LinearGradient
         colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}
         start={{ x: 0, y: 0 }}
@@ -29,7 +32,12 @@ const PaymentMethod = ({ paymentMode, name, icon, isIcon, price }) => {
 };
 
 const styles = StyleSheet.create({
-  paymentCardContainer: {},
+  paymentCardContainer: (isSelected) => ({
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: isSelected ? COLORS.primaryOrangeHex : COLORS.primaryGreyHex,
+    overflow: "hidden",
+  }),
   gradient: {
     flexDirection: "row",
     alignItems: "center",
@@ -37,9 +45,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     paddingHorizontal: 16,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: COLORS.primaryGreyHex,
   },
   iconMethodContainer: {
     flexDirection: "row",
