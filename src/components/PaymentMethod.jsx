@@ -4,11 +4,19 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTFAMILY } from "../theme/theme";
 import CustomIcon from "./CustomIcon";
 
-const PaymentMethod = ({ paymentMode, name, icon, isIcon, price }) => {
+const PaymentMethod = ({
+  paymentMode,
+  name,
+  icon,
+  isIcon,
+  price,
+  setPaymentMode,
+}) => {
   return (
     <TouchableOpacity
       style={styles.paymentCardContainer(paymentMode === name)}
-      activeOpacity={0.5}
+      activeOpacity={0.7}
+      onPress={() => setPaymentMode(name)}
     >
       <LinearGradient
         colors={[COLORS.primaryGreyHex, COLORS.primaryBlackHex]}

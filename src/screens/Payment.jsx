@@ -56,7 +56,10 @@ const Payment = ({ navigation, route }) => {
       </View>
 
       <View style={styles.paymentOptionsContainer}>
-        <TouchableOpacity onPress={() => setPaymentMode("Credit Card")}>
+        <TouchableOpacity
+          onPress={() => setPaymentMode("Credit Card")}
+          activeOpacity={0.7}
+        >
           <View
             style={styles.creditCardContainer(paymentMode === "Credit Card")}
           >
@@ -107,6 +110,7 @@ const Payment = ({ navigation, route }) => {
             icon={item.icon}
             isIcon={item.isIcon}
             price={price}
+            setPaymentMode={setPaymentMode}
           />
         ))}
       </View>
