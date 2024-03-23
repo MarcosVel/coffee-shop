@@ -7,8 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { CustomIcon, PaymentFooter, PaymentMethod } from "../components";
+import {
+  CustomIcon,
+  PaymentFooter,
+  PaymentMethod,
+  PopUpAnimation,
+} from "../components";
 import GradientIcon from "../components/GradientIcon";
+import { useStore } from "../store/store";
 import { COLORS, FONTFAMILY } from "../theme/theme";
 
 const PaymentList = [
@@ -36,7 +42,21 @@ const PaymentList = [
 
 const Payment = ({ navigation, route }) => {
   const { price } = route.params;
+  const addToOrderHistoryFromCart = useStore(
+    (state) => state.addToOrderHistoryFromCart
+  );
   const [paymentMode, setPaymentMode] = useState("Credit Card");
+  const [showAnimation, setShowAnimation] = useState(false);
+
+  function navigateToOrderHistory() {
+    setShowAnimation(true);
+
+    addToOrderHistoryFromCart();
+    setTimeout(() => {
+      setShowAnimation(false);
+      navigation.navigate("History");
+    }, 1600);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -120,8 +140,10 @@ const Payment = ({ navigation, route }) => {
         prices={{ 0: { price } }}
         selectedSize={0}
         buttonText={`Pay from ${paymentMode}`}
-        buttonHandler={() => {}}
+        buttonHandler={navigateToOrderHistory}
       />
+
+      {showAnimation && <PopUpAnimation animation="successful" />}
     </SafeAreaView>
   );
 };
@@ -185,6 +207,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: 10,
     opacity: 0.5,
+    textTransform: "capitalize",
   },
   cardData: {
     fontSize: 14,
