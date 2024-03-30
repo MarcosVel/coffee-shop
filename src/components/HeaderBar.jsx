@@ -25,8 +25,9 @@ const HeaderBar = ({ title, onPress }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    padding: SPACING.space_28,
     paddingTop: SPACING.space_10,
+    paddingHorizontal: SPACING.space_28,
+    paddingBottom: SPACING.space_12,
     alignItems: "center",
     justifyContent: "space-between",
   },
