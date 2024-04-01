@@ -239,6 +239,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_28,
     color: COLORS.primaryWhiteHex,
+    marginTop: SPACING.space_12,
     marginLeft: SPACING.space_28,
   },
   inputContainer: {

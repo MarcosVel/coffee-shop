@@ -516,10 +516,10 @@ PODS:
     - React-jsi (= 0.72.6)
     - React-logger (= 0.72.6)
     - React-perflogger (= 0.72.6)
-  - rive-react-native (6.1.1):
+  - rive-react-native (6.2.3):
     - React-Core
-    - RiveRuntime (= 5.3.1)
-  - RiveRuntime (5.3.1)
+    - RiveRuntime (= 5.5.1)
+  - RiveRuntime (5.5.1)
   - RNCAsyncStorage (1.18.2):
     - React-Core
   - RNScreens (3.22.1):
@@ -781,8 +781,8 @@ SPEC CHECKSUMS:
   React-runtimescheduler: f23e337008403341177fc52ee4ca94e442c17ede
   React-utils: fa59c9a3375fb6f4aeb66714fd3f7f76b43a9f16
   ReactCommon: dd03c17275c200496f346af93a7b94c53f3093a4
-  rive-react-native: 08eb103dff9217fc921e1bcd32527603d87fa933
-  RiveRuntime: 63fe0407ab96ab1796c492d1e584a3b766e80693
+  rive-react-native: 79777686cb29eaba6a28a0534fe82c8b8da41b4a
+  RiveRuntime: b57830ff73f406f3b4022f457b16690535ca4d05
   RNCAsyncStorage: ddc4ee162bfd41b0d2c68bf2d95acd81dd7f1f93
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
@@ -790,4 +790,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e7a40b64abc0c41c686a0a3fea67305c4b24d90c
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.14.3

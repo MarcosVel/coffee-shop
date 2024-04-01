@@ -7,7 +7,7 @@ const EmptyList = ({ screen }) => {
   return (
     <View style={styles.container}>
       <Rive
-        url="https://public.rive.app/community/runtime-files/7843-15126-coffee.riv"
+        resourceName="coffee"
         fit={Fit.Contain}
         style={{
           width: 250,

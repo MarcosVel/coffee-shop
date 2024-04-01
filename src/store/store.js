@@ -142,6 +142,34 @@ export const useStore = create(
             }
           })
         ),
+      addToOrderHistoryFromCart: () =>
+        set(
+          produce((state) => {
+            const temp = state.CartList.reduce(
+              (accumulator, currentValue) =>
+                accumulator + parseFloat(currentValue.ItemPrice),
+              0
+            ).toFixed(2);
+
+            const orderDate =
+              new Date().toDateString() + " " + new Date().toLocaleTimeString();
+
+            state.OrderHistoryList.unshift({
+              OrderDate: orderDate,
+              CartList: state.CartList,
+              CartListPrice: temp.toString(),
+            });
+
+            state.CartList = [];
+          })
+        ),
+
+      cleanOrderHistory: () =>
+        set(
+          produce((state) => {
+            state.OrderHistoryList = [];
+          })
+        ),
     }),
     {
       name: "coffee-app",
