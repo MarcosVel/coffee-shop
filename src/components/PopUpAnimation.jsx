@@ -20,7 +20,7 @@ const PopUpAnimation = ({ animation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.primaryBlackRGBA,
+    backgroundColor: COLORS.secondaryBlackRGBA,
     position: "absolute",
     top: 0,
     left: 0,

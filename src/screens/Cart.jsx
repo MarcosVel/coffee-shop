@@ -105,9 +105,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: SPACING.space_20,
     marginBottom: 84,
   },
-  blurView: {
-    width: "100%",
-  },
 });
 
 export default Cart;
